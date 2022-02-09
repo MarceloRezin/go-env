@@ -3,8 +3,11 @@ package goenv
 import "testing"
 
 const chave = "key"
+const chave2 = "key1"
 const valor = "value"
+const valor2 = "value1"
 const lineValueValido = chave + "=" + valor
+const lineValueValido2 = chave2 + "=" + valor2
 const lineValueValorVazio = chave + "="
 const lineValueChaveVazio = "=" + valor
 const lineValueTudoVazio = "="
