@@ -13,6 +13,19 @@ func Read(envDir string) (map[string]string, error) {
 		return nil, errors.New("Não foi possível ler o arquivo.")
 	}
 
+	return scannerFileToEnvMap(scanner)
+}
+
+func getScannerFromFileDir(fileDir string) (*bufio.Scanner, error) {
+	file, err := os.Open(fileDir)
+	if err != nil {
+		return nil, err
+	}
+
+	return bufio.NewScanner(file), nil
+}
+
+func scannerFileToEnvMap(scanner *bufio.Scanner) (map[string]string, error) {
 	envVars := make(map[string]string)
 	for scanner.Scan() {
 		chave, valor, err := parseLine(scanner.Text())
@@ -24,15 +37,6 @@ func Read(envDir string) (map[string]string, error) {
 	}
 
 	return envVars, nil
-}
-
-func getScannerFromFileDir(fileDir string) (*bufio.Scanner, error) {
-	file, err := os.Open(fileDir)
-	if err != nil {
-		return nil, err
-	}
-
-	return bufio.NewScanner(file), nil
 }
 
 func parseLine(line string) (string, string, error) {
