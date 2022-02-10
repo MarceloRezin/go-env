@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+const SEPARATOR = '='
+
 func Read(envDir string) (map[string]string, error) {
 	scanner, err := getScannerFromFileDir(envDir)
 	if err != nil {
@@ -40,16 +42,16 @@ func scannerFileToEnvMap(scanner *bufio.Scanner) (map[string]string, error) {
 }
 
 func parseLine(line string) (string, string, error) {
-	chaveValor := strings.Split(line, "=")
-
-	if len(chaveValor) == 2 {
-		chave := chaveValor[0]
-		if chave == "" {
-			return "", "", errors.New("A chave não pode ser vazia")
-		}
-
-		return chave, chaveValor[1], nil
-	} else {
+	indexSeparator := strings.IndexByte(line, SEPARATOR)
+	if indexSeparator <= 0 {
 		return "", "", errors.New("Conjunto chave valor inválido.")
 	}
+
+	chave := line[:indexSeparator]
+	if chave == "" {
+		return "", "", errors.New("A chave não pode ser vazia")
+	}
+
+	valor := line[(indexSeparator + 1):]
+	return chave, valor, nil
 }
