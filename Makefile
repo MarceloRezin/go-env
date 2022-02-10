@@ -12,3 +12,4 @@ deploy:
 	git tag $(VERSAO)
 	git push origin $(VERSAO)
 	GOPROXY=proxy.golang.org go list -m $(PACKAGE)@$(VERSAO)
+	git push
