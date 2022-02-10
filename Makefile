@@ -1,5 +1,5 @@
 PACKAGE=github.com/MarceloRezin/go-env
-VERSAO=v0.0.0
+VERSAO=v0.2.0
 
 test:
 	@ echo "Executando testes de unidade"
